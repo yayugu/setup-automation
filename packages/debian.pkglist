@@ -1,0 +1,11 @@
+# Debian / Ubuntu. Consumed by: sudo apt-get install -y $(pkglist debian.pkglist)
+# One package per line. Blank lines and # comments ignored.
+build-essential
+git
+zsh
+tmux
+tig
+vim-nox
+wget
+mosh
+tree

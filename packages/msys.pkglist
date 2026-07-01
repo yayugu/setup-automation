@@ -1,0 +1,20 @@
+# MSYS2. Consumed by: pacman -S --needed $(pkglist msys.pkglist)
+# Source: actual `pacman -Qqe` in C:\msys64 (2026-07-02), minus always-present
+# core (base, filesystem, msys2-runtime). PRUNE anything you don't want.
+# NOTE: git here is the mingw build (mingw-w64-x86_64-git), not the msys `git`.
+
+# --- shell / core CLI ---
+zsh
+vim
+openssh
+mingw-w64-x86_64-git
+rsync
+unzip
+zip
+colordiff
+diffutils
+patch
+
+# --- languages ---
+python
+ruby

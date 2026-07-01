@@ -1,0 +1,7 @@
+# vim runtime junk
+home/.vim/bundle/
+home/.vim/dein/
+home/.vim/.netrwhist
+
+# private helper repo (cloned separately after ssh key is available)
+/git2/

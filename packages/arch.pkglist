@@ -1,0 +1,42 @@
+# Arch Linux (WSL2) - OFFICIAL repo packages.
+# Consumed by: pacman -S --needed $(pkglist arch.pkglist)
+# Source: actual `pacman -Qqen` (native/explicit) on the archlinux WSL distro
+# (2026-07-02), minus the `base` meta-package. AUR packages live in
+# arch-aur.pkglist. PRUNE anything you don't want.
+
+# --- shell / core CLI ---
+base-devel
+sudo
+zsh
+vim
+ex-vi-compat
+git
+git-lfs
+openssh
+tig
+wget
+ripgrep
+unzip
+make
+
+# --- languages / runtimes ---
+#nodejs-lts-krypton
+#npm
+#bun
+
+# --- tools ---
+aws-cli-v2
+
+# --- databases (prune if not needed on a given machine) ---
+postgresql
+percona-server
+percona-server-clients
+
+# --- GUI app + its libs that showed up as explicitly installed (likely openscad) ---
+openscad
+at-spi2-core
+libxcomposite
+libxdamage
+libxrandr
+nspr
+nss

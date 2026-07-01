@@ -1,0 +1,19 @@
+# Keep shell scripts & dotfiles LF so bash works on macOS/Linux even when
+# authored/checked out on Windows. Windows-native files stay CRLF.
+* text=auto
+
+*.sh            text eol=lf
+Brewfile        text eol=lf
+*.pkglist       text eol=lf
+home/**         text eol=lf
+lib/**          text eol=lf
+os/*.sh         text eol=lf
+*.json          text eol=lf
+
+*.ps1           text eol=crlf
+*.reg           text eol=crlf
+*.vcxproj       text eol=crlf
+*.sln           text eol=crlf
+
+*.exe           binary
+*.ico           binary

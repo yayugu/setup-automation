@@ -1,0 +1,30 @@
+# macOS packages. Consumed by: brew bundle --file=packages/Brewfile
+# Idempotent: re-running only installs what's missing.
+
+# --- CLI ---------------------------------------------------------------------
+brew "gist"
+brew "hub"
+brew "tig"
+brew "tmux"
+brew "zsh"
+brew "wget"
+brew "mosh"
+brew "tree"
+brew "mas"            # Mac App Store CLI (used for Xcode in os/mac.sh)
+
+# --- GUI apps ----------------------------------------------------------------
+cask "iterm2"
+cask "visual-studio-code"
+cask "docker"
+cask "sequel-ace"
+cask "firefox"
+cask "slack"
+cask "enpass"
+cask "karabiner-elements"
+cask "codex"          # OpenAI Codex CLI (installed as a cask on macOS)
+cask "azookey"        # Japanese IME (azooKey-Desktop)
+cask "claude"         # Claude desktop GUI. (Claude Code CLI is installed via the
+                      #  native installer in os/mac.sh; cask "claude-code" also exists.)
+
+# --- Mac App Store apps ------------------------------------------------------
+mas "Xcode", id: 497799835

@@ -1,0 +1,10 @@
+[user]
+	name = yayugu
+	email = yayugu@gmail.com
+[color]
+	ui = auto
+[github]
+	user = yayugu
+	# PAT removed. Authenticate with: gh auth login
+[core]
+	editor = /usr/bin/nano

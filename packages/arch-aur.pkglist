@@ -1,0 +1,7 @@
+# Arch Linux (WSL2) - AUR packages (installed via yay, not pacman).
+# Consumed by: yay -S --needed $(pkglist arch-aur.pkglist)
+# Source: actual `pacman -Qqem` (foreign/explicit) on the archlinux WSL distro
+# (2026-07-02). yay-bin (the helper itself) is bootstrapped by os/arch.sh, and
+# yay-bin-debug (debug artifact) is intentionally omitted. PRUNE as needed.
+
+openai-codex-bin
