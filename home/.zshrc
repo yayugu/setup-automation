@@ -101,6 +101,7 @@ export LESS='-R'
 [ -d ~/setup-automation/git2/bin ] && export PATH=$PATH:~/setup-automation/git2/bin
 
 [ -f ~/.zshrc.mac ] && source ~/.zshrc.mac
+[ -f ~/.zshrc.msys ] && source ~/.zshrc.msys
 [ -f ~/.zshrc.my ] && source ~/.zshrc.my
 
 # 入力支援プラグイン (setupスクリプトが ~/.zsh に clone。無ければ黙ってスキップ)

@@ -1,1 +1,2 @@
 export PATH=$PATH:/mingw64/bin
+alias vi=vim
