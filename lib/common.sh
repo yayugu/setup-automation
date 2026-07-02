@@ -86,6 +86,21 @@ print_bootstrap_cleanup() {
   printf 'This bootstrap dir is no longer needed — delete it:\n    rm -rf %q\n' "$INVOKED_FROM"
 }
 
+# --- zsh plugins (cloned directly; .zshrc sources them iff present) -----------
+# Deliberately no plugin manager: two clones + two source lines don't need one.
+ensure_zsh_plugins() {
+  local base="$HOME/.zsh" repo
+  mkdir -p "$base"
+  for repo in zsh-autosuggestions zsh-syntax-highlighting; do
+    if [ -d "$base/$repo" ]; then
+      log "$repo already present"
+    else
+      log "cloning $repo"
+      git clone --depth=1 "https://github.com/zsh-users/$repo.git" "$base/$repo"
+    fi
+  done
+}
+
 # --- git2 (private helper repo; cloned into the canonical checkout) -----------
 # Best-effort over ssh. On a fresh machine without a key this fails gracefully
 # and is queued as a manual step. Call after ensure_canonical_repo.

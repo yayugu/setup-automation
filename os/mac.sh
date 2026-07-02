@@ -70,6 +70,7 @@ install_claude() {
 main() {
   install_clt                # provides git
   ensure_canonical_repo      # clone ~/setup-automation, repoint REPO_ROOT there
+  ensure_zsh_plugins
   install_brew
   ensure_git2
   setup_symlinks

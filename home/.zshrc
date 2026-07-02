@@ -91,3 +91,10 @@ export LESS='-R'
 
 [ -f ~/.zshrc.mac ] && source ~/.zshrc.mac
 [ -f ~/.zshrc.my ] && source ~/.zshrc.my
+
+# 入力支援プラグイン (setupスクリプトが ~/.zsh に clone。無ければ黙ってスキップ)
+[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] &&
+  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# syntax-highlighting は他のzle設定より後 = .zshrc の最後で source する決まり
+[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] &&
+  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
