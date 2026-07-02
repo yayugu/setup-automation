@@ -27,7 +27,6 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(git kubectl)
 
 source $ZSH/oh-my-zsh.sh
-#source $HOME/setup-automation/home/.zsh/kube-ps1.sh
 
 #[ -f $HOME/.rvm/scripts/rvm ] && source $HOME/.rvm/scripts/rvm
 #[[ -s $HOME/.nvm/nvm.sh ]] && source $HOME/.nvm/nvm.sh
@@ -120,8 +119,6 @@ PATH=$HOME/works/depot_tools:$PATH
 [ -d ~/setup-automation/git2/bin ] && export PATH=$PATH:~/setup-automation/git2/bin
 
 export LANG=C.UTF-8;
-
-#PROMPT=$PROMPT'$(kube_ps1)'
 
 [ -f ~/.zshrc.mac ] && source ~/.zshrc.mac
 [ -f ~/.zshrc.my ] && source ~/.zshrc.my
