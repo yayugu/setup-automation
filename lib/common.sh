@@ -4,9 +4,17 @@
 
 set -euo pipefail
 
-# Repo root = parent dir of this lib/ directory.
+# Repo root = parent dir of this lib/ directory (i.e. wherever this script was
+# invoked from — may be the throwaway bootstrap tarball dir setup-automation-main).
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 export REPO_ROOT
+INVOKED_FROM="$REPO_ROOT"   # remembered so we can tell the user to delete it later
+
+# Canonical, git-backed checkout. All persistent symlinks point here (never at the
+# bootstrap dir), so you can edit/commit dotfiles after setup.
+CANON_DIR="$HOME/setup-automation"
+CANON_HTTPS="https://github.com/yayugu/setup-automation.git"
+CANON_SSH="git@github.com:yayugu/setup-automation.git"
 
 # --- logging -----------------------------------------------------------------
 log()  { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
@@ -50,6 +58,31 @@ link() {
     ln -sfn "$target" "$dest"
   fi
   log "linked ~/${2:-$1}"
+}
+
+# --- canonical repo ----------------------------------------------------------
+# Ensure a git-backed checkout exists at ~/setup-automation, then repoint
+# REPO_ROOT at it so every later step (symlinks, karabiner, brew, pkglists) uses
+# the persistent clone rather than the disposable bootstrap dir. Requires git
+# (installed by the os script's package step before this is called). Repo is
+# public, so the clone needs no ssh key; origin is switched to ssh for pushing.
+ensure_canonical_repo() {
+  if [ -d "$CANON_DIR/.git" ]; then
+    log "canonical repo present at $CANON_DIR"
+  else
+    log "cloning canonical repo -> $CANON_DIR (public https, no key needed)"
+    git clone "$CANON_HTTPS" "$CANON_DIR"
+    git -C "$CANON_DIR" remote set-url origin "$CANON_SSH"   # push via ssh once key exists
+  fi
+  REPO_ROOT="$CANON_DIR"
+}
+
+# Tell the user the bootstrap dir is disposable (only if we didn't run from the
+# canonical clone in the first place).
+print_bootstrap_cleanup() {
+  [ "$INVOKED_FROM" = "$CANON_DIR" ] && return
+  printf '\n\033[1;36mBootstrap done. Canonical git repo: %s\033[0m\n' "$CANON_DIR"
+  printf 'This bootstrap dir is no longer needed — delete it:\n    rm -rf %q\n' "$INVOKED_FROM"
 }
 
 # --- oh-my-zsh (cloned directly; not a submodule so tarball bootstrap works) --

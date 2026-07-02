@@ -68,7 +68,8 @@ install_claude() {
 }
 
 main() {
-  install_clt
+  install_clt                # provides git
+  ensure_canonical_repo      # clone ~/setup-automation, repoint REPO_ROOT there
   install_brew
   ensure_oh_my_zsh
   setup_symlinks
@@ -83,6 +84,7 @@ main() {
   manual "Firefox: work / private の各プロファイルで Firefox Sync にサインイン（拡張と設定が同期）"
   manual "Codex: 'codex' 実行で認証 / Claude: 'claude' 実行で認証"
   print_manual_steps
+  print_bootstrap_cleanup
 }
 
 main "$@"
