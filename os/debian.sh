@@ -10,7 +10,6 @@ sudo apt-get update -y
 sudo apt-get install -y $(pkglist debian.pkglist)
 
 ensure_canonical_repo      # git now present: clone ~/setup-automation, repoint REPO_ROOT
-ensure_oh_my_zsh
 ensure_git2
 setup_symlinks
 

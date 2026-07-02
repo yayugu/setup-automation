@@ -86,23 +86,6 @@ print_bootstrap_cleanup() {
   printf 'This bootstrap dir is no longer needed — delete it:\n    rm -rf %q\n' "$INVOKED_FROM"
 }
 
-# --- oh-my-zsh (cloned directly; not a submodule so tarball bootstrap works) --
-ensure_oh_my_zsh() {
-  local omz="$HOME/.oh-my-zsh"
-  # A leftover symlink (e.g. old ~/environment/home/.oh-my-zsh) makes -d succeed
-  # and would silently skip the clone. Replace it with a real clone.
-  if [ -L "$omz" ]; then
-    warn "replacing stale ~/.oh-my-zsh symlink ($(readlink "$omz"))"
-    rm -f "$omz"
-  fi
-  if [ -d "$omz" ]; then
-    log "oh-my-zsh already present"
-  else
-    log "cloning oh-my-zsh"
-    git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$omz"
-  fi
-}
-
 # --- git2 (private helper repo; cloned into the canonical checkout) -----------
 # Best-effort over ssh. On a fresh machine without a key this fails gracefully
 # and is queued as a manual step. Call after ensure_canonical_repo.

@@ -36,8 +36,8 @@ powershell -ExecutionPolicy Bypass -File .\os\windows.ps1
 
 Each script installs git + packages, then **clones the canonical repo to `~/setup-automation`**
 (public HTTPS, no key needed; `origin` is switched to SSH so you can push once your key is present)
-and symlinks dotfiles **into that clone** — so you can edit and commit them afterwards. It also
-clones oh-my-zsh and, on macOS/Windows, sets up GUI apps. Existing/stale symlinks (e.g. old
+and symlinks dotfiles **into that clone** — so you can edit and commit them afterwards. On
+macOS/Windows it also sets up GUI apps. Existing/stale symlinks (e.g. old
 `~/environment` ones) are overwritten via `ln -sfn`.
 
 When it finishes it prints a line telling you the bootstrap dir is disposable:

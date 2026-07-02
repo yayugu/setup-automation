@@ -71,7 +71,6 @@ main() {
   install_clt                # provides git
   ensure_canonical_repo      # clone ~/setup-automation, repoint REPO_ROOT there
   install_brew
-  ensure_oh_my_zsh
   ensure_git2
   setup_symlinks
   setup_karabiner
