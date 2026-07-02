@@ -15,6 +15,7 @@ INVOKED_FROM="$REPO_ROOT"   # remembered so we can tell the user to delete it la
 CANON_DIR="$HOME/setup-automation"
 CANON_HTTPS="https://github.com/yayugu/setup-automation.git"
 CANON_SSH="git@github.com:yayugu/setup-automation.git"
+GIT2_SSH="git@github.com:yayugu/git2.git"
 
 # --- logging -----------------------------------------------------------------
 log()  { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
@@ -87,11 +88,33 @@ print_bootstrap_cleanup() {
 
 # --- oh-my-zsh (cloned directly; not a submodule so tarball bootstrap works) --
 ensure_oh_my_zsh() {
-  if [ -d "$HOME/.oh-my-zsh" ]; then
+  local omz="$HOME/.oh-my-zsh"
+  # A leftover symlink (e.g. old ~/environment/home/.oh-my-zsh) makes -d succeed
+  # and would silently skip the clone. Replace it with a real clone.
+  if [ -L "$omz" ]; then
+    warn "replacing stale ~/.oh-my-zsh symlink ($(readlink "$omz"))"
+    rm -f "$omz"
+  fi
+  if [ -d "$omz" ]; then
     log "oh-my-zsh already present"
   else
     log "cloning oh-my-zsh"
-    git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
+    git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$omz"
+  fi
+}
+
+# --- git2 (private helper repo; cloned into the canonical checkout) -----------
+# Best-effort over ssh. On a fresh machine without a key this fails gracefully
+# and is queued as a manual step. Call after ensure_canonical_repo.
+ensure_git2() {
+  local dir="$CANON_DIR/git2"
+  if [ -e "$dir" ]; then log "git2 already present"; return; fi
+  log "cloning git2 (private, over ssh)"
+  if git clone "$GIT2_SSH" "$dir" 2>/dev/null; then
+    log "git2 cloned"
+  else
+    warn "git2 clone failed — ssh key not available yet"
+    manual "git2: 鍵が使えるようになったら  git clone $GIT2_SSH $dir"
   fi
 }
 
