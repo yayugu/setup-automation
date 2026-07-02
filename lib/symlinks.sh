@@ -11,6 +11,5 @@ setup_symlinks() {
   link .vim
   link .gemrc
   link .gitconfig
-  link .bash_profile
   mkdir -p "$HOME/tmp/vim"     # vim backup/swap/undo dir (see .vimrc)
 }
