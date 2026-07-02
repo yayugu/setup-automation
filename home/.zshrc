@@ -33,21 +33,23 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
-# プロンプト: robbyrussell風 (zsh組み込みのvcs_infoのみ、外部依存なし)
+# プロンプト: oh-my-zsh robbyrussellテーマの判定ロジックを移植 (外部依存なし)
 #   ➜  dir git:(branch) ✗     矢印は直前コマンド成功で緑/失敗で赤
-#   ✗=未ステージ変更 ✚=ステージ済み変更 (untrackedファイルは検出しない)
-autoload -Uz vcs_info add-zsh-hook
+#   ✗ = staged/unstaged/untracked いずれかの変更あり (omzと同一の判定)
 setopt prompt_subst
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' unstagedstr ' %F{yellow}✗%f'
-zstyle ':vcs_info:git:*' stagedstr ' %F{yellow}✚%f'
-zstyle ':vcs_info:git:*' formats ' %F{blue}git:(%F{red}%b%F{blue})%f%u%c'
-zstyle ':vcs_info:git:*' actionformats ' %F{blue}git:(%F{red}%b|%a%F{blue})%f%u%c'
-add-zsh-hook precmd vcs_info
-PROMPT='%B%(?.%F{green}.%F{red})➜%f  %F{cyan}%c%f${vcs_info_msg_0_}%b '
+_git_prompt_info() {
+  local ref
+  ref=$(git symbolic-ref --short HEAD 2>/dev/null) ||
+    ref=$(git rev-parse --short HEAD 2>/dev/null) || return 0
+  ref=${ref//\%/%%}
+  local dirty=''
+  [ -n "$(git status --porcelain 2>/dev/null | head -c1)" ] && dirty=' %F{yellow}✗%f'
+  print -r -- " %F{blue}git:(%F{red}${ref}%F{blue})%f${dirty}"
+}
+PROMPT='%B%(?.%F{green}.%F{red})➜%f  %F{cyan}%c%f$(_git_prompt_info)%b '
 
 # ターミナルタイトルにカレントディレクトリを表示
+autoload -Uz add-zsh-hook
 case $TERM in
   xterm*|rxvt*|tmux*|screen*)
     _set_title() { print -Pn '\e]0;%~\a' }
