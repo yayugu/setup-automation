@@ -1,7 +1,7 @@
-bindkey -e                        # emacsライクなキーバインド
+bindkey -e # emacsライクなキーバインド
 
-export EDITOR=vi                  # エディタはvi
-export LANG=C.UTF-8               # メッセージ英語・POSIXソート順(意図的)
+export EDITOR=vim
+export LANG=C.UTF-8
 
 # 補完
 autoload -Uz compinit; compinit
@@ -32,6 +32,25 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
+
+# 矢印↑↓も前方一致の履歴検索に (omzと同じcontrib widget。カーソルはprefix末尾に残る。
+#  複数行編集中は行移動として振る舞う)
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[OA" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+bindkey "^[OB" down-line-or-beginning-search
+
+# Home/End/Delete: 素のzshのemacsキーマップでは未バインド (いままではomzが担当)
+bindkey "^[[H" beginning-of-line
+bindkey "^[[1~" beginning-of-line
+bindkey "^[OH" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[4~" end-of-line
+bindkey "^[OF" end-of-line
+bindkey "^[[3~" delete-char
 
 # プロンプト: oh-my-zsh robbyrussellテーマの判定ロジックを移植 (外部依存なし)
 #   ➜  dir git:(branch) ✗     矢印は直前コマンド成功で緑/失敗で赤
