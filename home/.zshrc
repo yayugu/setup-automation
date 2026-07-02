@@ -100,8 +100,10 @@ export LESS='-R'
 # git2 (private repo, cloned separately after ssh key is available)
 [ -d ~/setup-automation/git2/bin ] && export PATH=$PATH:~/setup-automation/git2/bin
 
+# 環境ごとの設定ファイルが存在すれば読み込む
 [ -f ~/.zshrc.mac ] && source ~/.zshrc.mac
 [ -f ~/.zshrc.msys ] && source ~/.zshrc.msys
+# myはgit管理しないもの、そのマシン特有か、共通化まで行っていない設定を置く
 [ -f ~/.zshrc.my ] && source ~/.zshrc.my
 
 # 入力支援プラグイン (setupスクリプトが ~/.zsh に clone。無ければ黙ってスキップ)
