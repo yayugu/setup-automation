@@ -45,7 +45,7 @@ zstyle ':vcs_info:git:*' stagedstr ' %F{yellow}✚%f'
 zstyle ':vcs_info:git:*' formats ' %F{blue}git:(%F{red}%b%F{blue})%f%u%c'
 zstyle ':vcs_info:git:*' actionformats ' %F{blue}git:(%F{red}%b|%a%F{blue})%f%u%c'
 add-zsh-hook precmd vcs_info
-PROMPT='%B%(?.%F{green}.%F{red})➜%f%b  %F{cyan}%c%f${vcs_info_msg_0_} '
+PROMPT='%B%(?.%F{green}.%F{red})➜%f  %F{cyan}%c%f${vcs_info_msg_0_}%b '
 
 # ターミナルタイトルにカレントディレクトリを表示
 case $TERM in
