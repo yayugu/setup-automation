@@ -12,6 +12,7 @@ ensure_canonical_repo      # git now present: clone ~/setup-automation, repoint 
 ensure_zsh_plugins
 ensure_git2
 setup_symlinks
+link .zshrc.msys
 
 print_manual_steps
 print_bootstrap_cleanup

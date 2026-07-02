@@ -74,6 +74,7 @@ main() {
   install_brew
   ensure_git2
   setup_symlinks
+  link .zshrc.mac
   setup_karabiner
   install_claude
   finish_xcode

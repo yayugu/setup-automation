@@ -5,7 +5,6 @@
 setup_symlinks() {
   log "symlinking dotfiles"
   link .zshrc
-  link .zshrc.mac
   link .tmux.conf
   link .vimrc
   link .vim
