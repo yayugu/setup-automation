@@ -23,7 +23,8 @@ install_clt() {
   label=$(softwareupdate -l 2>/dev/null \
     | grep -E 'Label: Command Line Tools' \
     | sed -E 's/.*Label: //' | sort -V | tail -n1)
-  [ -n "$label" ] && softwareupdate -i "$label" --verbose || warn "CLT label not found; run: xcode-select --install"
+  [ -n "$label" ] && softwareupdate -i "$label" --verbose --agree-to-license \
+    || warn "CLT label not found; run: xcode-select --install"
   rm -f "$flag"
 }
 
@@ -40,14 +41,34 @@ install_brew() {
 }
 
 # --- Xcode (full, via mas) ---------------------------------------------------
-finish_xcode() {
-  if [ -d /Applications/Xcode.app ]; then
-    log "accepting Xcode license + first launch"
-    sudo xcodebuild -license accept || warn "xcodebuild -license accept failed"
-    sudo xcodebuild -runFirstLaunch  || warn "xcodebuild -runFirstLaunch failed"
-  else
-    manual "App Store にサインインし 'mas install' で Xcode を取得（サインイン後 ./os/mac.sh 再実行で license accept まで自動）"
+# Idempotent: xcodebuild -checkFirstLaunchStatus tells us whether license
+# acceptance + first-launch already happened, so reruns don't re-prompt sudo.
+# Also: xcodebuild refuses to run at all while the active developer directory
+# still points at the standalone Command Line Tools (the default after
+# install_clt), even if Xcode.app is present — so switch it first.
+# Called both before and after install_brew: early to cover Xcode already
+# present from a prior run (accept its license before anything else needs it),
+# late to cover Xcode having just been installed via `mas` in this run.
+accept_xcode_license() {
+  [ -d /Applications/Xcode.app ] || return 1
+  local dev_dir=/Applications/Xcode.app/Contents/Developer
+  if [ "$(xcode-select -p 2>/dev/null)" != "$dev_dir" ]; then
+    log "switching active developer directory to Xcode.app"
+    sudo xcode-select -s "$dev_dir" || { warn "xcode-select -s failed"; return 1; }
   fi
+  if xcodebuild -checkFirstLaunchStatus >/dev/null 2>&1; then
+    log "Xcode license/first-launch already completed"
+    return 0
+  fi
+  log "accepting Xcode license + first launch"
+  sudo xcodebuild -license accept || warn "xcodebuild -license accept failed"
+  sudo xcodebuild -runFirstLaunch  || warn "xcodebuild -runFirstLaunch failed"
+}
+
+finish_xcode() {
+  accept_xcode_license && return
+  [ -d /Applications/Xcode.app ] || \
+    manual "App Store にサインインし 'mas install' で Xcode を取得（サインイン後 ./os/mac.sh 再実行で license accept まで自動）"
 }
 
 # --- Karabiner config (key mappings only; GUI approvals stay manual) ---------
@@ -58,8 +79,11 @@ setup_karabiner() {
 }
 
 # --- Claude Code CLI (native installer, not npm) -----------------------------
+# The installer puts the binary at ~/.local/bin/claude but nothing persists
+# that dir onto PATH for non-interactive shells, so `command -v claude` alone
+# fails on every rerun of this script even though it's already installed.
 install_claude() {
-  if command -v claude >/dev/null 2>&1; then
+  if command -v claude >/dev/null 2>&1 || [ -x "$HOME/.local/bin/claude" ]; then
     log "claude CLI already installed"
   else
     log "installing Claude Code CLI (native)"
@@ -68,7 +92,9 @@ install_claude() {
 }
 
 main() {
+  ensure_sudo                # ask for the password once; keep it alive for the rest of the run
   install_clt                # provides git
+  accept_xcode_license || true  # in case Xcode.app already exists from a prior run — before brew needs it
   ensure_canonical_repo      # clone ~/setup-automation, repoint REPO_ROOT there
   ensure_zsh_plugins
   install_brew
@@ -77,7 +103,7 @@ main() {
   link .zshrc.mac
   setup_karabiner
   install_claude
-  finish_xcode
+  finish_xcode                # covers Xcode having just been installed via mas above
 
   # Interactive steps that cannot be scripted:
   manual "Enpass: activateとvault syncのためにクラウドサービスをリンク"

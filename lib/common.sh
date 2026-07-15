@@ -40,6 +40,17 @@ print_manual_steps() {
   printf 'Full details: %s/MANUAL.md\n' "$REPO_ROOT"
 }
 
+# --- sudo up front -------------------------------------------------------------
+# Several steps need root (softwareupdate -i, xcodebuild -license/-runFirstLaunch).
+# Authenticate once here and keep the ticket alive in the background so the user
+# is only ever asked for their password a single time per run.
+ensure_sudo() {
+  sudo -v
+  ( while true; do sudo -n true; sleep 60; kill -0 "$$" >/dev/null 2>&1 || exit; done ) 2>/dev/null &
+  SUDO_KEEPALIVE_PID=$!
+  trap '[ -n "${SUDO_KEEPALIVE_PID:-}" ] && kill "$SUDO_KEEPALIVE_PID" 2>/dev/null' EXIT
+}
+
 # --- idempotent symlink ------------------------------------------------------
 # link <target-under-repo-home> <dest-under-$HOME>
 # Overwrites existing symlinks (e.g. old ones pointing at ~/environment).

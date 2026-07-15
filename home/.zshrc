@@ -100,6 +100,9 @@ export LESS='-R'
 # git2 (private repo, cloned separately after ssh key is available)
 [ -d ~/setup-automation/git2/bin ] && export PATH=$PATH:~/setup-automation/git2/bin
 
+# Claude Code CLI (native installer puts the binary here; not on PATH by default)
+[ -d ~/.local/bin ] && export PATH=$PATH:~/.local/bin
+
 # 環境ごとの設定ファイルが存在すれば読み込む
 [ -f ~/.zshrc.mac ] && source ~/.zshrc.mac
 [ -f ~/.zshrc.msys ] && source ~/.zshrc.msys
