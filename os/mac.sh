@@ -71,6 +71,15 @@ finish_xcode() {
     manual "App Store にサインインし 'mas install' で Xcode を取得（サインイン後 ./os/mac.sh 再実行で license accept まで自動）"
 }
 
+# --- Keyboard repeat ---------------------------------------------------------
+# Lower values mean a shorter delay before repeating and a faster repeat rate.
+# These match the values configured in System Settings on the source Mac.
+setup_keyboard_repeat() {
+  defaults write -g InitialKeyRepeat -int 15
+  defaults write -g KeyRepeat -int 2
+  log "configured keyboard repeat (delay=15, rate=2; applies after logout/login)"
+}
+
 # --- Karabiner config (key mappings only; GUI approvals stay manual) ---------
 setup_karabiner() {
   mkdir -p "$HOME/.config/karabiner"
@@ -104,6 +113,7 @@ install_claude() {
 }
 
 main() {
+  setup_keyboard_repeat     # user-level preference; do this before any sudo/system authorization
   ensure_sudo                # ask for the password once; keep it alive for the rest of the run
   install_clt                # provides git
   accept_xcode_license || true  # in case Xcode.app already exists from a prior run — before brew needs it
