@@ -78,6 +78,18 @@ setup_karabiner() {
   log "linked karabiner.json (左右⌘=英かな / CapsLock=Control)"
 }
 
+# --- iTerm2 profile (scrollback / font / colors via Dynamic Profiles) -------
+# Dynamic Profiles are hot-reloaded by iTerm2 (no restart), but a Dynamic
+# Profile can't share a Guid with an existing regular profile — it shows up
+# as a separate profile ("by-setup-automation") that must be set as Default
+# manually once (see MANUAL.md).
+setup_iterm2() {
+  mkdir -p "$HOME/Library/Application Support/iTerm2/DynamicProfiles"
+  ln -sfn "$REPO_ROOT/gui/iterm2/profile.json" \
+    "$HOME/Library/Application Support/iTerm2/DynamicProfiles/setup-automation.json"
+  log "linked iTerm2 dynamic profile (scrollback/font/colors)"
+}
+
 # --- Claude Code CLI (native installer, not npm) -----------------------------
 # The installer puts the binary at ~/.local/bin/claude but nothing persists
 # that dir onto PATH for non-interactive shells, so `command -v claude` alone
@@ -102,6 +114,7 @@ main() {
   setup_symlinks
   link .zshrc.mac
   setup_karabiner
+  setup_iterm2
   install_claude
   finish_xcode                # covers Xcode having just been installed via mas above
 
@@ -109,6 +122,7 @@ main() {
   manual "Enpass: activateとvault syncのためにクラウドサービスをリンク"
   manual "Karabiner: システム設定でドライバ(system extension)承認 + Input Monitoring / アクセシビリティを許可（TCCはスクリプト不可）"
   manual "AzooKey: cask名未確定。入力ソースとして追加・有効化（システム設定 > キーボード > 入力ソース）"
+  manual "iTerm2: Preferences > Profiles で 'by-setup-automation' を選択 > 歯車 > Set as Default にし、古い 'Default' プロファイルは削除/リネーム"
   manual "Firefox: work / private の各プロファイルで Firefox Sync にサインイン（拡張と設定が同期）"
   manual "Codex: 'codex' 実行で認証 / Claude: 'claude' 実行で認証"
   print_manual_steps

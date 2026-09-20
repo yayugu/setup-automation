@@ -19,9 +19,13 @@ relevant subset at the end of a run; this is the full reference.
    CapsLock=Control) are already applied via the symlinked `karabiner.json`.
 6. **AzooKey** — installed via `cask "azookey"`; add & enable it under
    **System Settings > Keyboard > Input Sources**.
+7. **iTerm2** — scrollback/font/color come from the Dynamic Profile in `gui/iterm2/profile.json`
+   (symlinked by `setup_iterm2` in `os/mac.sh`), which appears as a new profile named
+   **by-setup-automation**. Preferences > Profiles > select **by-setup-automation** > gear icon >
+   **Set as Default**, then delete or rename the old **Default** profile.
 
 ## Windows only
-7. **WSL / MSYS2** — install the distro, then run `os/arch.sh` (WSL) or `os/msys.sh` (MSYS2)
+8. **WSL / MSYS2** — install the distro, then run `os/arch.sh` (WSL) or `os/msys.sh` (MSYS2)
    *inside* it to get dotfiles and CLI packages.
 
 ## Notes
