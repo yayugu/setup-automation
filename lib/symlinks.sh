@@ -9,6 +9,9 @@ setup_symlinks() {
   link .vimrc
   link .vim
   link .gemrc
-  link .gitconfig
+  if ! git config --global --get core.editor >/dev/null; then
+    git config --global core.editor vim
+  fi
+  link .tigrc
   mkdir -p "$HOME/tmp/vim"     # vim backup/swap/undo dir (see .vimrc)
 }

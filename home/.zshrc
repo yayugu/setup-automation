@@ -103,6 +103,8 @@ export LESS='-R'
 # Claude Code CLI (native installer puts the binary here; not on PATH by default)
 [ -d ~/.local/bin ] && export PATH=$PATH:~/.local/bin
 
+[ -d ~/.bun/bin ] && export PATH=~/.bun/bin:$PATH
+
 # 環境ごとの設定ファイルが存在すれば読み込む
 [ -f ~/.zshrc.mac ] && source ~/.zshrc.mac
 [ -f ~/.zshrc.msys ] && source ~/.zshrc.msys

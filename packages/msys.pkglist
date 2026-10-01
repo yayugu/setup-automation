@@ -8,6 +8,7 @@ zsh
 vim
 openssh
 mingw-w64-x86_64-git
+tig
 rsync
 unzip
 zip

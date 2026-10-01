@@ -55,12 +55,16 @@ os/         per-OS entry scripts (run one manually)
 lib/        common.sh (helpers, symlink, manual-step queue) + symlinks.sh
 packages/   Brewfile + *.pkglist (plain newline lists)
 gui/        karabiner/
-home/       dotfiles (.gitconfig has NO token — use `gh auth login`)
+home/       dotfiles (Git user identity and credentials are managed locally)
 MANUAL.md   interactive/GUI steps that can't be scripted
 ```
 
 ## Secrets
 None live here, and nothing here depends on a secret to run. Never commit a secret to this repo.
+
+`~/.gitconfig` is not symlinked or tracked. Setup sets `core.editor` to `vim` only
+when it is unset; existing Git settings are preserved. Configure your name and
+email locally and use `gh auth login` for GitHub authentication.
 
 ## After bootstrap
 `~/setup-automation` is your git checkout (origin already set to SSH — push works once your key is
