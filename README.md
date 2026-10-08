@@ -70,6 +70,11 @@ email locally and use `gh auth login` for GitHub authentication.
 only when it doesn't exist yet. An existing file is never overwritten; use the repo
 copy as a reference to update it by hand.
 
+Context-saving Claude Code settings (env vars + disallowed tools) apply only to
+Claude Code launched by Paseo: `home/.paseo/claude-provider.json` is merged into
+`agents.providers.claude` of `~/.paseo/config.json` (other keys kept). The Claude
+desktop app and plain `claude` don't read it. Restart Paseo after a change.
+
 ## After bootstrap
 `~/setup-automation` is your git checkout (origin already set to SSH — push works once your key is
 present). To also fetch the private git2 helper repo:

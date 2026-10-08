@@ -1,0 +1,24 @@
+{
+  "env": {
+    "ENABLE_TOOL_SEARCH": "false",
+    "CLAUDE_CODE_DISABLE_ATTACHMENTS": "1",
+    "CLAUDE_CODE_DISABLE_WORKFLOWS": "1",
+    "CLAUDE_CODE_DISABLE_CRON": "1",
+    "ENABLE_CLAUDEAI_MCP_SERVERS": "false",
+    "CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS": "1"
+  },
+  "disallowedTools": [
+    "DesignSync",
+    "Monitor",
+    "SendMessage",
+    "ScheduleWakeup",
+    "RemoteTrigger",
+    "PushNotification",
+    "ShareOnboardingGuide",
+    "ReportFindings",
+    "ListAgents",
+    "EnterWorktree",
+    "ExitWorktree",
+    "NotebookEdit"
+  ]
+}

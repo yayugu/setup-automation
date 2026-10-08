@@ -90,6 +90,24 @@ copy_if_missing() {
   fi
 }
 
+# --- Paseo: Claude provider overrides ----------------------------------------
+# Context-saving env + disallowedTools for Claude Code launched *by Paseo* only.
+# Lives in ~/.paseo/config.json (agents.providers.claude), not ~/.claude, so the
+# Claude desktop app / plain `claude` are unaffected. Paseo rewrites that file
+# itself, so merge our keys in with jq instead of linking it. Restart Paseo after.
+merge_paseo_claude_overrides() {
+  local src="$REPO_ROOT/home/.paseo/claude-provider.json"
+  local dest="$HOME/.paseo/config.json" tmp
+  command -v jq >/dev/null 2>&1 || { warn "jq not found; skip Paseo claude overrides"; return; }
+  mkdir -p "$(dirname "$dest")"
+  [ -e "$dest" ] || printf '{"version":1}\n' > "$dest"
+  tmp="$(mktemp)"
+  jq --slurpfile o "$src" '.agents.providers.claude = ((.agents.providers.claude // {}) + $o[0])' \
+    "$dest" > "$tmp" && cat "$tmp" > "$dest"   # cat keeps dest's 0600 perms
+  rm -f "$tmp"
+  log "merged Paseo claude overrides into ~/.paseo/config.json"
+}
+
 # --- canonical repo ----------------------------------------------------------
 # Ensure a git-backed checkout exists at ~/setup-automation, then repoint
 # REPO_ROOT at it so every later step (symlinks, karabiner, brew, pkglists) uses
