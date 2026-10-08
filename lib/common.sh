@@ -72,6 +72,24 @@ link() {
   log "linked ~/${2:-$1}"
 }
 
+# --- copy-if-missing ---------------------------------------------------------
+# copy_if_missing <source-under-repo-home> <dest-under-$HOME>
+# For files the app rewrites itself: seed a real copy, never symlink. An
+# existing dest is left untouched (manage it by hand; repo copy is a reference).
+copy_if_missing() {
+  local src="$REPO_ROOT/home/$1"
+  local dest="$HOME/${2:-$1}"
+  [ -e "$src" ] || { warn "missing source: $src (skip)"; return; }
+
+  if [ -e "$dest" ] || [ -L "$dest" ]; then
+    log "~/${2:-$1} exists (kept; reference copy: $src)"
+  else
+    mkdir -p "$(dirname "$dest")"
+    cp "$src" "$dest"
+    log "copied ~/${2:-$1}"
+  fi
+}
+
 # --- canonical repo ----------------------------------------------------------
 # Ensure a git-backed checkout exists at ~/setup-automation, then repoint
 # REPO_ROOT at it so every later step (symlinks, karabiner, brew, pkglists) uses

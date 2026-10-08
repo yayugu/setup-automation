@@ -66,6 +66,10 @@ None live here, and nothing here depends on a secret to run. Never commit a secr
 when it is unset; existing Git settings are preserved. Configure your name and
 email locally and use `gh auth login` for GitHub authentication.
 
+`~/.claude/settings.json` is copied (not symlinked) from `home/.claude/settings.json`
+only when it doesn't exist yet. An existing file is never overwritten; use the repo
+copy as a reference to update it by hand.
+
 ## After bootstrap
 `~/setup-automation` is your git checkout (origin already set to SSH — push works once your key is
 present). To also fetch the private git2 helper repo:

@@ -100,8 +100,8 @@ export LESS='-R'
 # git2 (private repo, cloned separately after ssh key is available)
 [ -d ~/setup-automation/git2/bin ] && export PATH=$PATH:~/setup-automation/git2/bin
 
-# Claude Code CLI (native installer puts the binary here; not on PATH by default)
-[ -d ~/.local/bin ] && export PATH=$PATH:~/.local/bin
+# ~/.local/bin: Claude Code / Antigravity CLI 等のインストーラが置く場所。先頭に追加
+[ -d ~/.local/bin ] && export PATH=~/.local/bin:$PATH
 
 [ -d ~/.bun/bin ] && export PATH=~/.bun/bin:$PATH
 

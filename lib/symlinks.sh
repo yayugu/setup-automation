@@ -13,5 +13,6 @@ setup_symlinks() {
     git config --global core.editor vim
   fi
   link .tigrc
+  copy_if_missing .claude/settings.json
   mkdir -p "$HOME/tmp/vim"     # vim backup/swap/undo dir (see .vimrc)
 }
