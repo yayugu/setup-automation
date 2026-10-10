@@ -7,5 +7,6 @@ tmux
 tig
 vim-nox
 wget
+unzip
 mosh
 tree

@@ -163,6 +163,20 @@ ensure_git2() {
   fi
 }
 
+# --- bun (official installer -> ~/.bun, user-local; not the distro package) ---
+# Distro packages lag behind releases (bun check landed in 1.4.3). The official
+# build lives in ~/.bun and self-updates with `bun upgrade`. .zshrc already puts
+# ~/.bun/bin on PATH, so run the installer with SHELL=sh to stop it appending
+# its own lines to ~/.zshrc (a symlink into this repo).
+ensure_bun() {
+  if [ -x "$HOME/.bun/bin/bun" ]; then
+    log "bun already installed ($("$HOME/.bun/bin/bun" --version))"
+    return
+  fi
+  log "installing bun (official installer, ~/.bun)"
+  curl -fsSL https://bun.com/install | SHELL=/bin/sh bash || warn "bun install failed"
+}
+
 # --- package list reader -----------------------------------------------------
 # Prints package names from packages/<name>, skipping blanks and # comments.
 pkglist() {

@@ -126,6 +126,7 @@ main() {
   setup_karabiner
   setup_iterm2
   install_claude
+  ensure_bun
   finish_xcode                # covers Xcode having just been installed via mas above
 
   # Interactive steps that cannot be scripted:

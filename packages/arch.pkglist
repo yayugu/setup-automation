@@ -22,7 +22,7 @@ make
 # --- languages / runtimes ---
 #nodejs-lts-krypton
 #npm
-#bun
+# bun: installed by ensure_bun (official installer, ~/.bun), not pacman
 
 # --- tools ---
 aws-cli-v2

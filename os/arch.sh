@@ -23,6 +23,7 @@ yay -S --needed --noconfirm $(pkglist arch-aur.pkglist)
 ensure_canonical_repo      # git now present: clone ~/setup-automation, repoint REPO_ROOT
 ensure_zsh_plugins
 ensure_git2
+ensure_bun
 setup_symlinks
 
 manual "デフォルトshellをzshに: chsh -s \$(which zsh)"
