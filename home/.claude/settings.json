@@ -25,7 +25,8 @@
       "EnterWorktree",
       "ExitWorktree",
       "NotebookEdit",
-      "PublishPlugin"
+      "PublishPlugin",
+      "AskUserQuestion"
     ]
   },
   "attribution": {

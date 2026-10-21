@@ -84,6 +84,7 @@ else
 fi
 alias la="ls -a"
 alias ll="ls -l"
+alias vi="vim"
 alias g="git"
 alias gco="git checkout"
 alias ggrep="git grep -n"
