@@ -14,6 +14,5 @@ setup_symlinks() {
   fi
   link .tigrc
   copy_if_missing .claude/settings.json
-  merge_paseo_claude_overrides
   mkdir -p "$HOME/tmp/vim"     # vim backup/swap/undo dir (see .vimrc)
 }

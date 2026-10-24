@@ -122,6 +122,7 @@ main() {
   install_brew
   ensure_git2
   setup_symlinks
+  merge_paseo_claude_overrides  # Paseo is only used on macOS
   link .zshrc.mac
   setup_karabiner
   setup_iterm2
