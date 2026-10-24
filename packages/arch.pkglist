@@ -1,8 +1,7 @@
 # Arch Linux (WSL2) - OFFICIAL repo packages.
 # Consumed by: pacman -S --needed $(pkglist arch.pkglist)
 # Source: actual `pacman -Qqen` (native/explicit) on the archlinux WSL distro
-# (2026-07-02), minus the `base` meta-package. AUR packages live in
-# arch-aur.pkglist. PRUNE anything you don't want.
+# (2026-07-02), minus the `base` meta-package. PRUNE anything you don't want.
 
 # --- shell / core CLI ---
 base-devel

@@ -8,20 +8,6 @@ source "$DIR/../lib/symlinks.sh"
 log "pacman sync + install official packages"
 sudo pacman -Syu --noconfirm --needed $(pkglist arch.pkglist)
 
-# AUR via yay (bootstrap yay itself if missing; skip if the list is empty)
-if [ -n "$(pkglist arch-aur.pkglist)" ]; then
-  if ! command -v yay >/dev/null 2>&1; then
-    log "bootstrapping yay (AUR helper)"
-    sudo pacman -S --needed --noconfirm git base-devel
-    tmp="$(mktemp -d)"
-    git clone https://aur.archlinux.org/yay-bin.git "$tmp/yay-bin"
-    ( cd "$tmp/yay-bin" && makepkg -si --noconfirm )   # makepkg must NOT run as root
-    rm -rf "$tmp"
-  fi
-  log "yay install AUR packages"
-  yay -S --needed --noconfirm $(pkglist arch-aur.pkglist)
-fi
-
 ensure_canonical_repo      # git now present: clone ~/setup-automation, repoint REPO_ROOT
 ensure_zsh_plugins
 ensure_git2
