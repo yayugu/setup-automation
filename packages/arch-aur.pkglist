@@ -4,4 +4,4 @@
 # (2026-07-02). yay-bin (the helper itself) is bootstrapped by os/arch.sh, and
 # yay-bin-debug (debug artifact) is intentionally omitted. PRUNE as needed.
 
-openai-codex-bin
+# No AUR packages are currently installed by default.

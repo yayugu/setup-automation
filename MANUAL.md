@@ -8,7 +8,7 @@ relevant subset at the end of a run; this is the full reference.
    Vault syncs. Enpass is installed automatically (brew cask / winget); only activation is manual.
 2. **Firefox** — sign each profile (work / private) into its own **Firefox Sync** account so
    extensions, extension settings (incl. mouse-gesture config), and bookmarks come back.
-3. **Claude / Codex** — run `claude` and `codex` once to authenticate.
+3. **Claude** — run `claude` once to authenticate.
 
 ## macOS only
 4. **Xcode** — sign into the **App Store** so `mas install` can fetch Xcode, then re-run

@@ -135,7 +135,7 @@ main() {
   manual "AzooKey: cask名未確定。入力ソースとして追加・有効化（システム設定 > キーボード > 入力ソース）"
   manual "iTerm2: Preferences > Profiles で 'by-setup-automation' を選択 > 歯車 > Set as Default にし、古い 'Default' プロファイルは削除/リネーム"
   manual "Firefox: work / private の各プロファイルで Firefox Sync にサインイン（拡張と設定が同期）"
-  manual "Codex: 'codex' 実行で認証 / Claude: 'claude' 実行で認証"
+  manual "Claude: 'claude' 実行で認証"
   print_manual_steps
   print_bootstrap_cleanup
 }

@@ -21,7 +21,6 @@ cask "firefox"
 cask "slack"
 cask "enpass"
 cask "karabiner-elements"
-cask "codex"          # OpenAI Codex CLI
 cask "chatgpt"        # OpenAI ChatGPT & Codex GUI
 cask "azookey"        # Japanese IME (azooKey-Desktop)
 cask "claude"         # Claude desktop GUI. (Claude Code CLI is installed via the
