@@ -24,6 +24,11 @@ relevant subset at the end of a run; this is the full reference.
    **by-setup-automation**. Preferences > Profiles > select **by-setup-automation** > gear icon >
    **Set as Default**, then delete or rename the old **Default** profile.
 
+## Omarchy only
+- **Japanese input** — `fcitx5-mozc` ships with Omarchy; add **Mozc** in `fcitx5-configtool`.
+- **CapsLock=Control / key repeat** — already applied via the symlinked
+  `~/.config/hypr/input.lua` (`gui/omarchy/hypr/input.lua`); the original is kept as `input.lua.bak`.
+
 ## Windows only
 8. **WSL / MSYS2** — install the distro, then run `os/arch.sh` (WSL) or `os/msys.sh` (MSYS2)
    *inside* it to get dotfiles and CLI packages.

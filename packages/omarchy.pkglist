@@ -1,0 +1,18 @@
+# Omarchy - OFFICIAL repo packages ON TOP OF what Omarchy already installs.
+# Consumed by: omarchy pkg add $(pkglist omarchy.pkglist)
+# Official repos only — no AUR, so everything here also exists for aarch64.
+# Omarchy already ships git, openssh, ripgrep, tmux, jq, base-devel, chromium,
+# fcitx5(-mozc), etc. Listing one of them here is harmless (pacman --needed).
+
+# --- shell / core CLI ---
+zsh
+vim
+ex-vi-compat
+git-lfs
+tig
+wget
+unzip
+
+# --- tools ---
+github-cli
+aws-cli-v2

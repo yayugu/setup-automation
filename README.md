@@ -21,6 +21,7 @@ Then run the script for your platform (you pick it — no auto-detection):
 
 ```sh
 ./os/mac.sh        # macOS (GUI: brew, Xcode, Karabiner, Enpass, Firefox, Claude/Codex...)
+./os/omarchy.sh    # Omarchy (Arch + Hyprland desktop: CLI + Firefox, CapsLock=Ctrl; no AUR)
 ./os/arch.sh       # Arch (WSL / server, CLI only)
 ./os/debian.sh     # Debian / Ubuntu (CLI only)
 ./os/msys.sh       # MSYS2 (run from an MSYS2 shell)
@@ -54,7 +55,7 @@ sign-in, etc.) is printed at the end and listed in [MANUAL.md](MANUAL.md).
 os/         per-OS entry scripts (run one manually)
 lib/        common.sh (helpers, symlink, manual-step queue) + symlinks.sh
 packages/   Brewfile + *.pkglist (plain newline lists)
-gui/        karabiner/
+gui/        karabiner/, iterm2/, omarchy/ (Hyprland input overrides)
 home/       dotfiles (Git user identity and credentials are managed locally)
 MANUAL.md   interactive/GUI steps that can't be scripted
 ```
