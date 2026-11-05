@@ -90,22 +90,20 @@ copy_if_missing() {
   fi
 }
 
-# --- Paseo: Claude provider overrides ----------------------------------------
-# Context-saving env + disallowedTools for Claude Code launched *by Paseo* only.
-# Lives in ~/.paseo/config.json (agents.providers.claude), not ~/.claude, so the
-# Claude desktop app / plain `claude` are unaffected. Paseo rewrites that file
-# itself, so merge our keys in with jq instead of linking it. Restart Paseo after.
-merge_paseo_claude_overrides() {
-  local src="$REPO_ROOT/home/.paseo/claude-provider.json"
+# --- Paseo: Claude settings ---------------------------------------------------
+# Paseo が起動する Claude Code に、このリポジトリの settings.json を `--settings` で渡す。
+# config.json は Paseo 自身も書き換えるので、リンクせず jq でキーだけ設定する。
+setup_paseo_claude_settings() {
+  local src="$REPO_ROOT/home/.claude/settings.json"
   local dest="$HOME/.paseo/config.json" tmp
-  command -v jq >/dev/null 2>&1 || { warn "jq not found; skip Paseo claude overrides"; return; }
+  command -v jq >/dev/null 2>&1 || { warn "jq not found; skip Paseo claude settings"; return; }
   mkdir -p "$(dirname "$dest")"
   [ -e "$dest" ] || printf '{"version":1}\n' > "$dest"
   tmp="$(mktemp)"
-  jq --slurpfile o "$src" '.agents.providers.claude = ((.agents.providers.claude // {}) + $o[0])' \
-    "$dest" > "$tmp" && cat "$tmp" > "$dest"   # cat keeps dest's 0600 perms
+  jq --arg s "$src" '.agents.providers.claude.options.extraArgs.settings = $s' \
+    "$dest" > "$tmp" && cat "$tmp" > "$dest"   # cat で書き戻して 0600 の権限を保つ
   rm -f "$tmp"
-  log "merged Paseo claude overrides into ~/.paseo/config.json"
+  log "pointed Paseo claude at $src in ~/.paseo/config.json"
 }
 
 # --- canonical repo ----------------------------------------------------------
