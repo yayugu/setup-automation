@@ -27,7 +27,9 @@
       "NotebookEdit",
       "PublishPlugin",
       "AskUserQuestion",
-      "Agent"
+      "Agent",
+      "EnterPlanMode",
+      "ExitPlanMode"
     ]
   },
   "attribution": {
